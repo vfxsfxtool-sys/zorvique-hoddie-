@@ -1,0 +1,288 @@
+{
+  "entities": {
+    "SiteSettings": {
+      "title": "SiteSettings",
+      "description": "Global storefront branding, theme colours, navigation, shipping, payments, and SEO defaults",
+      "type": "object",
+      "properties": {
+        "brandName": { "type": "string", "maxLength": 100 },
+        "logoUrl": { "type": "string", "maxLength": 1000 },
+        "colors": { "type": "object" },
+        "nav": { "type": "array" },
+        "footerLinks": { "type": "array" },
+        "social": { "type": "object" },
+        "announcement": { "type": "string", "maxLength": 300 },
+        "shipping": { "type": "object" },
+        "payments": { "type": "object" },
+        "seo": { "type": "object" }
+      },
+      "required": ["brandName", "colors", "nav", "footerLinks", "social", "shipping", "payments", "seo"]
+    },
+    "Homepage": {
+      "title": "Homepage",
+      "description": "Homepage hero mode, section order and visibility, stats, and craft block",
+      "type": "object",
+      "properties": {
+        "heroMode": { "type": "string", "enum": ["carousel", "video"] },
+        "heroVideoUrl": { "type": "string", "maxLength": 1000 },
+        "heroPosterUrl": { "type": "string", "maxLength": 1000 },
+        "sections": { "type": "array" },
+        "stats": { "type": "array" },
+        "craft": { "type": "object" }
+      },
+      "required": ["heroMode", "sections", "stats", "craft"]
+    },
+    "HeroSlide": {
+      "title": "HeroSlide",
+      "description": "Full-viewport hero carousel slide bound to a colourway and product",
+      "type": "object",
+      "properties": {
+        "order": { "type": "number" },
+        "productId": { "type": "string", "maxLength": 128 },
+        "colourName": { "type": "string", "maxLength": 80 },
+        "bgColor": { "type": "string", "maxLength": 32 },
+        "headline": { "type": "string", "maxLength": 160 },
+        "body": { "type": "string", "maxLength": 600 },
+        "ctaLabel": { "type": "string", "maxLength": 60 },
+        "ctaLink": { "type": "string", "maxLength": 300 },
+        "imageUrl": { "type": "string", "maxLength": 1000 },
+        "active": { "type": "boolean" },
+        "isSample": { "type": "boolean" }
+      },
+      "required": ["order", "productId", "colourName", "bgColor", "headline", "body", "ctaLabel", "ctaLink", "imageUrl", "active"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Women's hoodie product with colourways, size stock, pricing in PKR, and SEO metadata",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 200 },
+        "slug": { "type": "string", "maxLength": 200, "pattern": "^[a-z0-9-]+$" },
+        "sku": { "type": "string", "maxLength": 80 },
+        "description": { "type": "string", "maxLength": 5000 },
+        "fabric": { "type": "string", "maxLength": 500 },
+        "price": { "type": "number" },
+        "compareAtPrice": { "type": "number" },
+        "badges": { "type": "array" },
+        "collectionId": { "type": "string", "maxLength": 128 },
+        "colourways": { "type": "array" },
+        "sizes": { "type": "array" },
+        "status": { "type": "string", "enum": ["draft", "published"] },
+        "featured": { "type": "boolean" },
+        "showOnRack": { "type": "boolean" },
+        "rackOrder": { "type": "number" },
+        "seoTitle": { "type": "string", "maxLength": 200 },
+        "seoDescription": { "type": "string", "maxLength": 400 },
+        "isSample": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "slug", "sku", "description", "fabric", "price", "badges", "collectionId", "colourways", "sizes", "status", "featured", "createdAt", "updatedAt"]
+    },
+    "Collection": {
+      "title": "Collection",
+      "description": "Product collection grouping",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 120 },
+        "slug": { "type": "string", "maxLength": 120, "pattern": "^[a-z0-9-]+$" },
+        "order": { "type": "number" },
+        "visible": { "type": "boolean" }
+      },
+      "required": ["name", "slug", "order", "visible"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "Customer testimonial displayed on storefront",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 120 },
+        "city": { "type": "string", "maxLength": 120 },
+        "rating": { "type": "number" },
+        "text": { "type": "string", "maxLength": 1000 },
+        "visible": { "type": "boolean" },
+        "isSample": { "type": "boolean" }
+      },
+      "required": ["name", "city", "rating", "text", "visible", "isSample"]
+    },
+    "Page": {
+      "title": "Page",
+      "description": "CMS markdown policy or informational page",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 200 },
+        "body": { "type": "string", "maxLength": 50000 },
+        "visible": { "type": "boolean" }
+      },
+      "required": ["title", "body", "visible"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order placed in Pakistan PKR",
+      "type": "object",
+      "properties": {
+        "orderNo": { "type": "string", "maxLength": 40 },
+        "customer": { "type": "object" },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "shipping": { "type": "number" },
+        "discount": { "type": "number" },
+        "discountCode": { "type": "string", "maxLength": 40 },
+        "total": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["cod", "jazzcash", "easypaisa"] },
+        "transactionId": { "type": "string", "maxLength": 100 },
+        "paymentStatus": { "type": "string", "enum": ["pending", "verification", "paid"] },
+        "status": { "type": "string", "enum": ["new", "confirmed", "shipped", "delivered", "cancelled"] },
+        "courier": { "type": "string", "enum": ["", "TCS", "Leopard", "Trax"] },
+        "trackingNo": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["orderNo", "customer", "items", "subtotal", "shipping", "discount", "total", "paymentMethod", "transactionId", "paymentStatus", "status", "courier", "trackingNo", "createdAt"]
+    },
+    "OrderTracking": {
+      "title": "OrderTracking",
+      "description": "Public non-PII order status and dispatch projection keyed by orderNo for customer order tracking",
+      "type": "object",
+      "properties": {
+        "orderNo": { "type": "string", "maxLength": 40, "pattern": "^[a-zA-Z0-9_-]+$" },
+        "orderId": { "type": "string", "maxLength": 128, "pattern": "^[a-zA-Z0-9_-]+$" },
+        "city": { "type": "string", "maxLength": 80 },
+        "itemCount": { "type": "number" },
+        "itemSummary": { "type": "array" },
+        "total": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["cod", "jazzcash", "easypaisa"] },
+        "paymentStatus": { "type": "string", "enum": ["pending", "verification", "paid"] },
+        "status": { "type": "string", "enum": ["new", "confirmed", "shipped", "delivered", "cancelled"] },
+        "courier": { "type": "string", "enum": ["", "TCS", "Leopard", "Trax"] },
+        "trackingNo": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["orderNo", "orderId", "city", "itemCount", "itemSummary", "total", "paymentMethod", "paymentStatus", "status", "courier", "trackingNo", "createdAt", "updatedAt"]
+    },
+    "DiscountCode": {
+      "title": "DiscountCode",
+      "description": "Promo discount code fetched by exact code ID",
+      "type": "object",
+      "properties": {
+        "percent": { "type": "number" },
+        "usageLimit": { "type": "number" },
+        "usedCount": { "type": "number" },
+        "expiresAt": { "type": "string", "maxLength": 64 },
+        "active": { "type": "boolean" }
+      },
+      "required": ["percent", "usageLimit", "usedCount", "active"]
+    },
+    "Subscriber": {
+      "title": "Subscriber",
+      "description": "Newsletter email subscriber",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 254, "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "createdAt"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Store owner/admin and owner-invited member access records in admins collection",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["owner", "admin", "member"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["role", "createdAt"]
+    },
+    "MediaAsset": {
+      "title": "MediaAsset",
+      "description": "Firestore media URL and static asset path metadata",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 200 },
+        "url": { "type": "string", "maxLength": 2000 },
+        "storagePath": { "type": "string", "maxLength": 500 },
+        "contentType": { "type": "string", "maxLength": 100 },
+        "size": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "url", "storagePath", "contentType", "size", "createdAt"]
+    },
+    "ProductReview": {
+      "title": "ProductReview",
+      "description": "Authenticated customer star rating and review for a published product, keyed as {productId}_{authorUid} without PII",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string", "maxLength": 128, "pattern": "^[a-zA-Z0-9_-]+$" },
+        "productSlug": { "type": "string", "maxLength": 200, "pattern": "^[a-z0-9-]+$" },
+        "authorUid": { "type": "string", "maxLength": 128, "pattern": "^[a-zA-Z0-9_-]+$" },
+        "authorName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "city": { "type": "string", "maxLength": 80 },
+        "rating": { "type": "integer" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "comment": { "type": "string", "minLength": 10, "maxLength": 1500 },
+        "fitFeedback": { "type": "string", "enum": ["", "runs-small", "true-to-size", "oversized-drape"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["productId", "productSlug", "authorUid", "authorName", "city", "rating", "title", "comment", "fitFeedback", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/siteSettings/{settingId}": {
+      "schema": { "$ref": "#/entities/SiteSettings" },
+      "description": "Storefront configuration document (main)"
+    },
+    "/homepage/{docId}": {
+      "schema": { "$ref": "#/entities/Homepage" },
+      "description": "Homepage layout, hero mode, stats, and craft content (main)"
+    },
+    "/heroSlides/{slideId}": {
+      "schema": { "$ref": "#/entities/HeroSlide" },
+      "description": "Hero carousel slides"
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Product catalog documents"
+    },
+    "/collections/{collectionId}": {
+      "schema": { "$ref": "#/entities/Collection" },
+      "description": "Product collections"
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": { "$ref": "#/entities/Testimonial" },
+      "description": "Customer testimonials"
+    },
+    "/pages/{slug}": {
+      "schema": { "$ref": "#/entities/Page" },
+      "description": "Policy and custom markdown pages"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Customer orders (public create, admin-only read/update)"
+    },
+    "/orderTracking/{trackingId}": {
+      "schema": { "$ref": "#/entities/OrderTracking" },
+      "description": "Public non-PII order status lookup keyed by orderNo (get by exact ID only, no public list)"
+    },
+    "/discountCodes/{code}": {
+      "schema": { "$ref": "#/entities/DiscountCode" },
+      "description": "Discount promo codes (public single-doc get, admin list/write)"
+    },
+    "/subscribers/{subscriberId}": {
+      "schema": { "$ref": "#/entities/Subscriber" },
+      "description": "Newsletter subscribers (public create, admin read/delete)"
+    },
+    "/admins/{email}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Authorized admin emails managed by owner"
+    },
+    "/media/{mediaId}": {
+      "schema": { "$ref": "#/entities/MediaAsset" },
+      "description": "Media library asset records"
+    },
+    "/productReviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/ProductReview" },
+      "description": "Authenticated customer product ratings and reviews (public read, one per user per product)"
+    }
+  }
+}
